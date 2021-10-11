@@ -86,4 +86,4 @@ async def on_message(message):
         await message.channel.send(dice)
     if message.content == 'chelp':
         await message.channel.send(help)
-client.run('ODk3MDQ1ODU4ODIwOTUyMDk0.YWP9Dw.cMBR6MsdORLBVnEsI0BvzDaPrQo')
+client.run('####your bot id goes here####')
