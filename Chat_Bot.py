@@ -1,12 +1,16 @@
 import os
 import random
 import discord
+from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
+
+bot = commands.Bot(command_prefix="!")
+items = ['rock','paper','scissors']
+rules = {'rock':'scissors','scissors':'paper','paper':'rock'}
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
-
 client = discord.Client()
 help = '''##################################
 Bot help: Go to the bot command channel
@@ -86,4 +90,35 @@ async def on_message(message):
         await message.channel.send(dice)
     if message.content == 'chelp':
         await message.channel.send(help)
-client.run('####your bot id goes here####')
+    if message.content == '!rock':
+        user_in = 'rock'
+        computer_in = random.choice(items)
+        if user_in == computer_in:
+            await message.channel.send(f'We Drew')
+        elif rules[user_in] == computer_in:
+            await message.channel.send(f'you won player i choosed {computer_in}')
+        else:
+            await message.channel.send(f'I Won i chose {computer_in}')
+        await message.channel.send(f"player: {user_in}, computer: {computer_in}")
+    if message.content == '!paper':
+        user_in = 'paper'
+        computer_in = random.choice(items)
+        if user_in == computer_in:
+            await message.channel.send(f'We Drew')
+        elif rules[user_in] == computer_in:
+            await message.channel.send(f'you won player i choosed {computer_in}')
+        else:
+            await message.channel.send(f'I Won i chose {computer_in}')
+        await message.channel.send(f"player: {user_in}, computer: {computer_in}")
+    if message.content == '!scissors':
+        user_in = 'scissors'
+        computer_in = random.choice(items)
+        if user_in == computer_in:
+            await message.channel.send(f'We Drew')
+        elif rules[user_in] == computer_in:
+            await message.channel.send(f'you won player i choosed {computer_in}')
+        else:
+            await message.channel.send(f'I Won i chose {computer_in}')
+        await message.channel.send(f"player: {user_in}, computer: {computer_in}")
+
+client.run('ODk3MDQ1ODU4ODIwOTUyMDk0.YWP9Dw.uXzOYMt8sv4LdbSYD-EFybzOMDA')
