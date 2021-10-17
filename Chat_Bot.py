@@ -121,4 +121,4 @@ async def on_message(message):
             await message.channel.send(f'I Won i chose {computer_in}')
         await message.channel.send(f"player: {user_in}, computer: {computer_in}")
 
-client.run(#ADD YOUR BOT TOKEN HERE#)
+client.run(TOKEN)
