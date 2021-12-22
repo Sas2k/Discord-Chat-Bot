@@ -3,6 +3,7 @@ import random
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+from WebApp import keep_Alive
 
 load_dotenv()
 
@@ -16,16 +17,12 @@ help = '''##################################
 Bot help: Go to the bot command channel
 ##################################
 '''
-@client.event
+@bot.command(name="ping")
+async def ping(ctx: commands.Context):
+  await ctx.send(f"pong! {round(bot.latency * 1000)}ms")
+@bot.event
 async def on_ready():
     print(f'{client.user.name} has connected to Discord!')
-
-@client.event
-async def on_ready():
-    print(f'{client.user} has connected to Discord!')
-
-@client.event
-async def on_ready():
     for guild in client.guilds:
         if guild.name == GUILD:
             break
@@ -35,6 +32,26 @@ async def on_ready():
     )
     members = '\n - '.join([member.name for member in guild.members])
     print(f'Guild Members:\n - {members}')
+
+    Channel = bot.get_channel('923094490665848882')
+    Text = "React to get a roll\n🔪 = imposters\n👨🏽‍💻 = Hecker\n✔ = Verified"
+    Moji = await bot.send_message(Channel, Text)
+    await bot.add_reaction(Moji, emoji='🔪, 👨🏽‍💻, ✔')
+
+@bot.event
+async def on_reaction_add(reaction, user):
+  Channel = client.get_channel('923094490665848882')
+  if reaction.message.channel.id != Channel:
+    return
+  if reaction.emoji == "🔪":
+    Role = discord.utils.get(user.server.roles, name="imposters")
+    await client.add_roles(user, Role)
+  if reaction.emoji == "👨🏽‍💻":
+    Role = discord.utils.get(user.server.roles, name="Hecker")
+    await client.add_roles(user, Role)
+  if reaction.emoji == "✔":
+    Role = discord.utils.get(user.server.roles, name="Verified")
+    await client.add_roles(user, Role)
 
 @client.event
 async def on_message(message):
@@ -121,4 +138,5 @@ async def on_message(message):
             await message.channel.send(f'I Won i chose {computer_in}')
         await message.channel.send(f"player: {user_in}, computer: {computer_in}")
 
+keep_Alive()
 client.run(TOKEN)

@@ -8,6 +8,7 @@ authors = ["Sas2k <<>>"]
 python = "^3.8"
 discord = "^1.7.3"
 python-dotenv = "^0.19.1"
+Flask = "^2.0.2"
 
 [tool.poetry.dev-dependencies]
 
